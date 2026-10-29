@@ -9,15 +9,15 @@
   <style>
     @media print {
       body * { visibility: hidden; }
-      #printable-albaran, #printable-albaran * { visibility: visible; }
-      #printable-albaran { position: absolute; left: 0; top: 0; width: 100%; }
+      #printable-albaran, #printable-albaran *, #printable-report, #printable-report * { visibility: visible; }
+      #printable-albaran, #printable-report { position: absolute; left: 0; top: 0; width: 100%; }
       .no-print { display: none !important; }
     }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans min-h-screen">
 
-  <!-- Header / Navigation -->
+  <!-- Header / Navegación Principal -->
   <header class="bg-blue-900 text-white shadow-lg no-print">
     <div class="max-w-7xl mx-auto px-4 py-4 flex flex-wrap justify-between items-center gap-4">
       <div class="flex items-center space-x-3">
@@ -34,7 +34,7 @@
       </div>
     </div>
     
-    <!-- Navigation Tabs -->
+    <!-- Pestañas de Navegación -->
     <nav class="bg-blue-950 px-4">
       <div class="max-w-7xl mx-auto flex space-x-1 overflow-x-auto text-sm font-medium">
         <button onclick="switchTab('fabrica')" id="tab-fabrica" class="tab-btn px-4 py-3 border-b-2 border-amber-500 text-amber-400 flex items-center space-x-2 whitespace-nowrap">
@@ -47,7 +47,7 @@
           <i class="fas fa-file-invoice"></i><span>Albaranes y Salidas</span>
         </button>
         <button onclick="switchTab('productividad')" id="tab-productividad" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-300 hover:text-white flex items-center space-x-2 whitespace-nowrap">
-          <i class="fas fa-chart-line"></i><span>Informes & Productividad</span>
+          <i class="fas fa-chart-line"></i><span>Informes & Exportación</span>
         </button>
         <button onclick="switchTab('config')" id="tab-config" class="tab-btn px-4 py-3 border-b-2 border-transparent text-slate-300 hover:text-white flex items-center space-x-2 whitespace-nowrap">
           <i class="fas fa-cog"></i><span>Google Sheets & GitHub</span>
@@ -56,7 +56,7 @@
     </nav>
   </header>
 
-  <!-- Main Content Area -->
+  <!-- Área Principal de Contenido -->
   <main class="max-w-7xl mx-auto p-4 md:p-6 no-print">
 
     <!-- TAB 1: FÁBRICA Y PRODUCCIÓN -->
@@ -77,14 +77,14 @@
             <div>
               <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Operario / Responsable</label>
               <select id="prod-operario" required class="w-full px-3 py-2 border rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none">
-                <!-- Se llena dinámicamente -->
+                <!-- Carga dinámica -->
               </select>
             </div>
 
             <div>
               <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Producto Elaborado</label>
               <select id="prod-producto" required class="w-full px-3 py-2 border rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none">
-                <!-- Se llena dinámicamente -->
+                <!-- Carga dinámica -->
               </select>
             </div>
 
@@ -134,13 +134,13 @@
                 <thead class="bg-slate-50 text-slate-500 uppercase text-xs border-b">
                   <tr>
                     <th class="py-2.5 px-3">Producto</th>
-                    <th class="py-2.5 px-3">Formato / Categoria</th>
+                    <th class="py-2.5 px-3">Formato / Categoría</th>
                     <th class="py-2.5 px-3 text-right">Stock Disponible</th>
                     <th class="py-2.5 px-3 text-center">Estado</th>
                   </tr>
                 </thead>
                 <tbody id="tabla-stock" class="divide-y divide-slate-100">
-                  <!-- Dinámico -->
+                  <!-- Carga dinámica -->
                 </tbody>
               </table>
             </div>
@@ -163,7 +163,7 @@
                   </tr>
                 </thead>
                 <tbody id="tabla-historial-produccion" class="divide-y divide-slate-100">
-                  <!-- Dinámico -->
+                  <!-- Carga dinámica -->
                 </tbody>
               </table>
             </div>
@@ -173,7 +173,7 @@
       </div>
     </section>
 
-    <!-- TAB 2: SOLICITUD DE PEDIDOS (RESTAURANTES Y PUNTOS DE VENTA) -->
+    <!-- TAB 2: SOLICITUD DE PEDIDOS -->
     <section id="sec-pedidos" class="tab-content hidden space-y-6">
       <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b">
@@ -186,14 +186,14 @@
           <div class="flex items-center space-x-2">
             <label class="text-xs font-bold text-slate-600 uppercase whitespace-nowrap">Punto Solicitante:</label>
             <select id="pedido-punto-destino" onchange="actualizarRazonSocialPedido()" class="px-3 py-2 border rounded-lg text-sm bg-slate-50 font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-emerald-500">
-              <!-- Cargado dinámicamente -->
+              <!-- Carga dinámica -->
             </select>
           </div>
         </div>
 
         <!-- Banner Info Razón Social -->
         <div id="info-razon-social" class="bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-xs text-emerald-900 mb-6 flex items-center justify-between">
-          <!-- Dinámico -->
+          <!-- Carga dinámica -->
         </div>
 
         <!-- Creador del Pedido -->
@@ -246,7 +246,7 @@
               </tr>
             </thead>
             <tbody id="tabla-historial-pedidos" class="divide-y divide-slate-100">
-              <!-- Dinámico -->
+              <!-- Carga dinámica -->
             </tbody>
           </table>
         </div>
@@ -284,19 +284,67 @@
               </tr>
             </thead>
             <tbody id="tabla-albaranes-emitidos" class="divide-y divide-slate-100">
-              <!-- Dinámico -->
+              <!-- Carga dinámica -->
             </tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <!-- TAB 4: INFORMES Y PRODUCTIVIDAD -->
+    <!-- TAB 4: INFORMES, PRODUCTIVIDAD Y EXPORTACIÓN -->
     <section id="sec-productividad" class="tab-content hidden space-y-6">
+      <!-- PANEL DE FILTROS Y EXPORTACIÓN -->
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-blue-200">
+        <h2 class="text-lg font-bold text-blue-900 mb-2 flex items-center justify-between">
+          <span><i class="fas fa-filter text-amber-500 mr-2"></i>Filtros de Análisis y Exportación</span>
+          <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2.5 py-1 rounded-full">Centro de Descargas</span>
+        </h2>
+        <p class="text-xs text-slate-500 mb-4">Aplica los filtros de rango de fechas u operarios para descargar informes en Excel/CSV o imprimir el informe consolidado.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Fecha Desde</label>
+            <input type="date" id="filter-fecha-desde" onchange="renderInformesProductividad()" class="w-full px-3 py-2 border rounded-lg text-sm bg-slate-50 outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Fecha Hasta</label>
+            <input type="date" id="filter-fecha-hasta" onchange="renderInformesProductividad()" class="w-full px-3 py-2 border rounded-lg text-sm bg-slate-50 outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Operario Producción</label>
+            <select id="filter-operario" onchange="renderInformesProductividad()" class="w-full px-3 py-2 border rounded-lg text-sm bg-slate-50 outline-none">
+              <option value="">TODOS LOS OPERARIOS</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Razón Social Destino</label>
+            <select id="filter-razon-social" onchange="renderInformesProductividad()" class="w-full px-3 py-2 border rounded-lg text-sm bg-slate-50 outline-none">
+              <option value="">TODAS LAS ENTIDADES</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Botones de Acción de Exportación -->
+        <div class="flex flex-wrap gap-3 pt-3 border-t">
+          <button onclick="exportarExcelCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-lg text-xs shadow flex items-center">
+            <i class="fas fa-file-excel mr-2 text-sm"></i>Descargar Excel / CSV
+          </button>
+          <button onclick="imprimirInformeProductividad()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-lg text-xs shadow flex items-center">
+            <i class="fas fa-file-pdf mr-2 text-sm"></i>Imprimir / Exportar PDF
+          </button>
+          <button onclick="compartirInforme()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-4 py-2 rounded-lg text-xs shadow flex items-center">
+            <i class="fas fa-share-alt mr-2 text-sm"></i>Compartir Informe
+          </button>
+          <button onclick="limpiarFiltros()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold px-3 py-2 rounded-lg text-xs">
+            Limpiar Filtros
+          </button>
+        </div>
+      </div>
+
       <!-- Métricas Clave -->
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-          <p class="text-xs text-slate-500 uppercase font-semibold">Total Producido</p>
+          <p class="text-xs text-slate-500 uppercase font-semibold">Total Producido (Filtrado)</p>
           <p id="stat-total-producido" class="text-2xl font-black text-blue-900 mt-1">0 ud</p>
         </div>
         <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
@@ -330,7 +378,7 @@
                 </tr>
               </thead>
               <tbody id="tabla-productividad-operarios" class="divide-y divide-slate-100">
-                <!-- Dinámico -->
+                <!-- Carga dinámica -->
               </tbody>
             </table>
           </div>
@@ -351,7 +399,7 @@
                 </tr>
               </thead>
               <tbody id="tabla-reparto-razones" class="divide-y divide-slate-100">
-                <!-- Dinámico -->
+                <!-- Carga dinámica -->
               </tbody>
             </table>
           </div>
@@ -398,9 +446,13 @@
 
   </main>
 
-  <!-- VISTA PREVIA IMPRESIÓN ALBARÁN (SOLO PRINT) -->
+  <!-- VISTA PREVIA IMPRESIÓN ALBARÁN Y REPORTE (SOLO PRINT) -->
   <div id="printable-albaran" class="hidden p-8 max-w-3xl mx-auto bg-white text-slate-900 font-sans">
-    <!-- Se genera dinámicamente -->
+    <!-- Contenido de Albarán dinámico -->
+  </div>
+
+  <div id="printable-report" class="hidden p-8 max-w-4xl mx-auto bg-white text-slate-900 font-sans">
+    <!-- Contenido de Reporte de Productividad dinámico -->
   </div>
 
   <!-- MODAL: NUEVO PRODUCTO -->
@@ -424,14 +476,15 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT LOGIC -->
+  <!-- LÓGICA JAVASCRIPT -->
   <script>
-    // === DATOS INICIALES Y MAESTROS DE LA EMPRESA ===
+    // === MAESTROS DE DATOS ===
     const OPERARIOS_PREDETERMINADOS = ["Judith", "Encarni", "Melisa", "Puerto", "Restaurante Cascarilla", "Restaurante Sidreria"];
 
+    // Actualizado: La Casa de los Ángeles ahora asignada a Santo y Seña Gestión SL (CIF: B-39222222)
     const PUNTOS_PEDIDO_MAP = [
       { id: "oficina", nombre: "Oficina", razonSocial: "Alibio Gestión SL", cif: "B-39111111", direccion: "Santoña, Cantabria" },
-      { id: "casa_angeles", nombre: "La Casa de los Ángeles", razonSocial: "Alibio Gestión SL", cif: "B-39111111", direccion: "Santoña, Cantabria" },
+      { id: "casa_angeles", nombre: "La Casa de los Ángeles", razonSocial: "Santo y Seña Gestión SL", cif: "B-39222222", direccion: "Santoña, Cantabria" },
       { id: "tienda_cascarilla", nombre: "Tienda de Cascarilla", razonSocial: "Santo y Seña Gestión SL", cif: "B-39222222", direccion: "Santoña, Cantabria" },
       { id: "rest_cascarilla", nombre: "Restaurante Cascarilla", razonSocial: "Santo y Seña Gestión SL", cif: "B-39222222", direccion: "Santoña, Cantabria" },
       { id: "el_santo", nombre: "El Santo", razonSocial: "El Santo Gestión Hostelera SL", cif: "B-39333333", direccion: "Santoña, Cantabria" },
@@ -445,7 +498,7 @@
       { id: "p4", nombre: "Boquerones en Vinagre", formato: "Tarrina 200g" }
     ];
 
-    // === ESTADO DE LA APLICACIÓN (LOCAL STORAGE) ===
+    // === ESTADO DE LA APLICACIÓN ===
     let appData = {
       operarios: [...OPERARIOS_PREDETERMINADOS],
       productos: [...PRODUCTOS_PREDETERMINADOS],
@@ -461,12 +514,27 @@
     window.addEventListener("DOMContentLoaded", () => {
       const savedData = localStorage.getItem("somos_santona_db");
       if (savedData) {
-        appData = JSON.parse(savedData);
+        try {
+          const parsed = JSON.parse(savedData);
+          appData = { ...appData, ...parsed };
+        } catch (e) {
+          console.error("Error leyendo LocalStorage:", e);
+        }
       }
       
-      // Establecer fecha de hoy por defecto
-      document.getElementById("prod-fecha").value = new Date().toISOString().split("T")[0];
+      const hoy = new Date().toISOString().split("T")[0];
+      document.getElementById("prod-fecha").value = hoy;
       
+      const ahora = new Date();
+      const horaStr = ahora.toTimeString().substring(0, 5);
+      document.getElementById("prod-hora-inicio").value = "08:00";
+      document.getElementById("prod-hora-fin").value = horaStr;
+
+      if (appData.appsScriptUrl) {
+        document.getElementById("config-apps-script-url").value = appData.appsScriptUrl;
+        document.getElementById("sync-status").innerText = "Sincronizado con Sheets";
+      }
+
       inicializarSelects();
       renderizarTodo();
     });
@@ -486,15 +554,20 @@
 
       document.getElementById(`sec-${tabId}`).classList.remove("hidden");
       const activeBtn = document.getElementById(`tab-${tabId}`);
-      activeBtn.classList.remove("border-transparent", "text-slate-300");
-      activeBtn.classList.add("border-amber-500", "text-amber-400");
+      if (activeBtn) {
+        activeBtn.classList.remove("border-transparent", "text-slate-300");
+        activeBtn.classList.add("border-amber-500", "text-amber-400");
+      }
     }
 
-    // === INICIALIZAR SELECTS Y RENDERIZADO ===
+    // === INICIALIZACIÓN ===
     function inicializarSelects() {
       // Operarios
       const selectOp = document.getElementById("prod-operario");
       selectOp.innerHTML = appData.operarios.map(op => `<option value="${op}">${op}</option>`).join("");
+
+      const filterOp = document.getElementById("filter-operario");
+      filterOp.innerHTML = `<option value="">TODOS LOS OPERARIOS</option>` + appData.operarios.map(op => `<option value="${op}">${op}</option>`).join("");
 
       // Productos
       const selectProd = document.getElementById("prod-producto");
@@ -504,11 +577,15 @@
       const selectPuntos = document.getElementById("pedido-punto-destino");
       selectPuntos.innerHTML = PUNTOS_PEDIDO_MAP.map(pt => `<option value="${pt.id}">${pt.nombre} (${pt.razonSocial})</option>`).join("");
 
+      // Razones Sociales para filtro
+      const razonesUnicas = [...new Set(PUNTOS_PEDIDO_MAP.map(pt => pt.razonSocial))];
+      const filterRaz = document.getElementById("filter-razon-social");
+      filterRaz.innerHTML = `<option value="">TODAS LAS ENTIDADES FISCALES</option>` + razonesUnicas.map(rz => `<option value="${rz}">${rz}</option>`).join("");
+
       actualizarRazonSocialPedido();
     }
 
     function renderizarTodo() {
-      calcularStockActual();
       renderTablaStock();
       renderHistorialProduccion();
       renderCatalogoPedidos();
@@ -522,12 +599,12 @@
     function obtenerStockProducto(productoId) {
       const totalProducido = appData.producciones
         .filter(p => p.productoId === productoId)
-        .reduce((acc, curr) => acc + parseInt(curr.unidades), 0);
+        .reduce((acc, curr) => acc + parseInt(curr.unidades || 0), 0);
 
       const totalEnviado = appData.albaranes
-        .flatMap(a => a.lineas)
+        .flatMap(a => a.lineas || [])
         .filter(l => l.productoId === productoId)
-        .reduce((acc, curr) => acc + parseInt(curr.unidadesEnviadas), 0);
+        .reduce((acc, curr) => acc + parseInt(curr.unidadesEnviadas || 0), 0);
 
       return totalProducido - totalEnviado;
     }
@@ -539,7 +616,7 @@
         const estadoBadge = stock > 50 
           ? `<span class="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full font-semibold">Óptimo</span>`
           : stock > 0 
-          ? `<span class="bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded-full font-semibold">Bajo</span>`
+          ? `<span class="bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded-full font-semibold font-bold">Bajo</span>`
           : `<span class="bg-red-100 text-red-800 text-xs px-2 py-0.5 rounded-full font-semibold">Agotado</span>`;
 
         return `
@@ -553,23 +630,22 @@
       }).join("");
     }
 
-    // === REGISTRO DE PRODUCCIÓN (CON TIEMPOS) ===
+    // === REGISTRO DE PRODUCCIÓN ===
     function handleRegistrarProduccion(e) {
       e.preventDefault();
       
       const fecha = document.getElementById("prod-fecha").value;
       const operario = document.getElementById("prod-operario").value;
       const productoId = document.getElementById("prod-producto").value;
-      const horaInicio = document.getElementById("prod-hora-inicio").value;
-      const horaFin = document.getElementById("prod-hora-fin").value;
-      const unidades = parseInt(document.getElementById("prod-unidades").value);
+      const horaInicio = document.getElementById("prod-hora-inicio").value || "08:00";
+      const horaFin = document.getElementById("prod-hora-fin").value || "16:00";
+      const unidades = parseInt(document.getElementById("prod-unidades").value) || 0;
       const lote = document.getElementById("prod-lote").value;
 
-      // Calcular minutos empleados
       const [hIni, mIni] = horaInicio.split(":").map(Number);
       const [hFin, mFin] = horaFin.split(":").map(Number);
       let minutosTotales = (hFin * 60 + mFin) - (hIni * 60 + mIni);
-      if (minutosTotales < 0) minutosTotales += 24 * 60; // Ajuste si cruza medianoche
+      if (isNaN(minutosTotales) || minutosTotales < 0) minutosTotales += 24 * 60;
 
       const nuevoParte = {
         id: "PROD-" + Date.now(),
@@ -588,7 +664,6 @@
       guardarEstado();
       sincronizarConGoogleSheets("Produccion", nuevoParte);
 
-      // Reset formulario parcial
       document.getElementById("prod-unidades").value = "";
       document.getElementById("prod-lote").value = "";
       alert("✅ Parte de producción registrado con éxito.");
@@ -602,7 +677,7 @@
           <tr>
             <td class="py-2 px-3 text-xs text-slate-600">${p.fecha}</td>
             <td class="py-2 px-3 font-medium text-slate-800">${p.operario}</td>
-            <td class="py-2 px-3 text-slate-700">${prod ? prod.nombre : 'Producto Borrado'}</td>
+            <td class="py-2 px-3 text-slate-700">${prod ? prod.nombre : 'Producto Eliminado'}</td>
             <td class="py-2 px-3 text-center text-xs text-slate-500">${p.horaInicio} - ${p.horaFin} (${p.minutosTotales} min)</td>
             <td class="py-2 px-3 text-right font-bold text-blue-900">+${p.unidades} ud</td>
           </tr>
@@ -610,18 +685,20 @@
       }).join("") || `<tr><td colspan="5" class="py-4 text-center text-xs text-slate-400">Sin partes registrados.</td></tr>`;
     }
 
-    // === SOLICITUD DE PEDIDOS (RESTAURANTES) ===
+    // === SOLICITUD DE PEDIDOS ===
     function actualizarRazonSocialPedido() {
       const puntoId = document.getElementById("pedido-punto-destino").value;
       const punto = PUNTOS_PEDIDO_MAP.find(p => p.id === puntoId);
       const banner = document.getElementById("info-razon-social");
       
-      banner.innerHTML = `
-        <div>
-          <span class="font-bold">Facturación Interempresa:</span> Venta efectuada por <span class="underline">Somos de Santoña SL</span> a favor de <span class="font-bold underline">${punto.razonSocial}</span> (CIF: ${punto.cif})
-        </div>
-        <span class="text-xs bg-emerald-200 text-emerald-800 px-2 py-0.5 rounded font-bold">${punto.nombre}</span>
-      `;
+      if (punto && banner) {
+        banner.innerHTML = `
+          <div>
+            <span class="font-bold">Facturación Interempresa:</span> Venta efectuada por <span class="underline">Somos de Santoña SL</span> a favor de <span class="font-bold underline">${punto.razonSocial}</span> (CIF: ${punto.cif})
+          </div>
+          <span class="text-xs bg-emerald-200 text-emerald-800 px-2 py-0.5 rounded font-bold">${punto.nombre}</span>
+        `;
+      }
     }
 
     function renderCatalogoPedidos() {
@@ -648,6 +725,7 @@
           </div>
         `;
       }).join("");
+      renderCarritoSummary();
     }
 
     function modificarCarrito(productoId, delta) {
@@ -660,11 +738,10 @@
       } else if (nuevo <= stock) {
         carritoActual[productoId] = nuevo;
       } else {
-        alert("⚠️ No puedes solicitar más del stock disponible.");
+        alert("⚠️ No puedes solicitar más unidades de las disponibles en stock.");
       }
 
       renderCatalogoPedidos();
-      renderCarritoSummary();
     }
 
     function renderCarritoSummary() {
@@ -680,7 +757,7 @@
         const prod = appData.productos.find(p => p.id === id);
         return `
           <div class="flex justify-between items-center py-1.5 text-xs">
-            <span class="font-medium text-slate-700">${prod.nombre}</span>
+            <span class="font-medium text-slate-700">${prod ? prod.nombre : 'Producto'}</span>
             <span class="font-bold text-slate-900">${carritoActual[id]} ud</span>
           </div>
         `;
@@ -690,7 +767,7 @@
     function guardarPedidoDefinitivo() {
       const keys = Object.keys(carritoActual);
       if (keys.length === 0) {
-        alert("⚠️ El pedido está vacío.");
+        alert("⚠️ Selecciona al menos un producto antes de enviar.");
         return;
       }
 
@@ -701,7 +778,7 @@
       const items = keys.map(id => ({
         productoId: id,
         unidadesSolicitadas: carritoActual[id],
-        unidadesEnviadas: carritoActual[id] // Por defecto igual, fábrica puede corregir
+        unidadesEnviadas: carritoActual[id]
       }));
 
       const nuevoPedido = {
@@ -710,7 +787,7 @@
         puntoDestino: punto.nombre,
         razonSocial: punto.razonSocial,
         cif: punto.cif,
-        estado: "PENDIENTE", // PENDIENTE -> CONFIRMADO
+        estado: "PENDIENTE",
         items,
         notas,
         timestamp: new Date().toISOString()
@@ -732,7 +809,7 @@
           ? `<span class="bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded-full font-bold">Pendiente Fábrica</span>`
           : `<span class="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full font-bold">Albarán Emitido</span>`;
 
-        const detalle = p.items.map(i => {
+        const detalle = (p.items || []).map(i => {
           const pr = appData.productos.find(x => x.id === i.productoId);
           return `${pr ? pr.nombre : 'Prod'}: ${i.unidadesSolicitadas}ud`;
         }).join(", ");
@@ -761,7 +838,7 @@
       }
 
       container.innerHTML = pendientes.map(p => {
-        const lineasHtml = p.items.map((item, idx) => {
+        const lineasHtml = (p.items || []).map((item, idx) => {
           const prod = appData.productos.find(x => x.id === item.productoId);
           return `
             <div class="flex items-center justify-between text-xs py-1 border-b border-slate-100">
@@ -784,7 +861,7 @@
                 <h4 class="font-bold text-slate-800 text-sm">${p.puntoDestino} &rarr; ${p.razonSocial}</h4>
                 <p class="text-xs text-slate-500">Fecha pedido: ${p.fecha}</p>
               </div>
-              <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold">Requiere Salida</span>
+              <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold">Pendiente Salida</span>
             </div>
 
             <div class="bg-white p-3 rounded-lg border space-y-1">
@@ -793,7 +870,7 @@
 
             <div class="flex justify-between items-center pt-2">
               <div class="flex items-center space-x-2">
-                <label class="text-xs font-semibold text-slate-600">Validado en fábrica por:</label>
+                <label class="text-xs font-semibold text-slate-600">Validado por:</label>
                 <select id="validado-por-${p.id}" class="text-xs p-1 border rounded bg-white font-semibold">
                   ${appData.operarios.map(op => `<option value="${op}">${op}</option>`).join("")}
                 </select>
@@ -811,7 +888,6 @@
       const pedido = appData.pedidos.find(p => p.id === pedidoId);
       const validadoPor = document.getElementById(`validado-por-${pedidoId}`).value;
 
-      // Actualizar unidades reales enviadas
       const lineasAlbaran = pedido.items.map((item, idx) => {
         const inputVal = document.getElementById(`input-envio-${pedidoId}-${idx}`).value;
         const unidadesReales = parseInt(inputVal) || 0;
@@ -822,7 +898,6 @@
         };
       });
 
-      // Crear Albarán
       const nuevoAlbaran = {
         id: "ALB-2026-" + String(appData.albaranes.length + 1).padStart(4, '0'),
         pedidoId: pedido.id,
@@ -835,13 +910,12 @@
         timestamp: new Date().toISOString()
       };
 
-      // Cambiar estado del pedido
       pedido.estado = "CONFIRMADO";
       appData.albaranes.unshift(nuevoAlbaran);
 
       guardarEstado();
       sincronizarConGoogleSheets("Albaranes", nuevoAlbaran);
-      alert(`📄 Albarán ${nuevoAlbaran.id} generado y stock descontado.`);
+      alert(`📄 Albarán ${nuevoAlbaran.id} emitido correctamente.`);
     }
 
     function renderAlbaranesEmitidos() {
@@ -862,12 +936,14 @@
       `).join("") || `<tr><td colspan="6" class="py-4 text-center text-xs text-slate-400">Sin albaranes emitidos.</td></tr>`;
     }
 
-    // === IMPRESIÓN DE ALBARANES ===
+    // === IMPRESIÓN A4 ALBARÁN ===
     function imprimirAlbaran(albaranId) {
       const alb = appData.albaranes.find(a => a.id === albaranId);
+      if (!alb) return;
+      
       const container = document.getElementById("printable-albaran");
 
-      const lineasHtml = alb.lineas.map(l => {
+      const lineasHtml = (alb.lineas || []).map(l => {
         const prod = appData.productos.find(p => p.id === l.productoId);
         return `
           <tr class="border-b">
@@ -882,7 +958,7 @@
         <div class="border-b-2 border-slate-900 pb-4 mb-6 flex justify-between items-start">
           <div>
             <h1 class="text-2xl font-black text-slate-900">SOMOS DE SANTOÑA SL</h1>
-            <p class="text-xs text-slate-600">NIF: B-39000000 | Fábrica y Distribución Central</p>
+            <p class="text-xs text-slate-600">NIF: B-39000000 | Fábrica Central</p>
             <p class="text-xs text-slate-600">Polígono Industrial de Santoña, Cantabria</p>
           </div>
           <div class="text-right">
@@ -894,7 +970,7 @@
 
         <div class="grid grid-cols-2 gap-6 p-4 bg-slate-50 border rounded-lg mb-6 text-xs">
           <div>
-            <p class="font-bold uppercase text-slate-500 mb-1">EMISOR (PRODUCCIÓN):</p>
+            <p class="font-bold uppercase text-slate-500 mb-1">EMISOR (FÁBRICA):</p>
             <p class="font-bold text-slate-900">Somos de Santoña SL</p>
             <p>Validado por: ${alb.validadoPor}</p>
           </div>
@@ -911,7 +987,7 @@
             <tr>
               <th class="py-2 px-2 text-left">Producto</th>
               <th class="py-2 px-2 text-left">Formato</th>
-              <th class="py-2 px-2 text-right">Cantidad Salida</th>
+              <th class="py-2 px-2 text-right">Cantidad Entregada</th>
             </tr>
           </thead>
           <tbody>
@@ -921,11 +997,11 @@
 
         <div class="grid grid-cols-2 gap-12 pt-12 text-center text-xs border-t">
           <div>
-            <p class="font-bold text-slate-700 border-b pb-12 mb-2">Firma y Sello Salida Fábrica</p>
+            <p class="font-bold text-slate-700 border-b pb-12 mb-2">Firma Salida Fábrica</p>
             <p class="text-slate-400">${alb.validadoPor}</p>
           </div>
           <div>
-            <p class="font-bold text-slate-700 border-b pb-12 mb-2">Firma y Conforme Recepción</p>
+            <p class="font-bold text-slate-700 border-b pb-12 mb-2">Firma Conforme Recepción</p>
             <p class="text-slate-400">${alb.puntoDestino}</p>
           </div>
         </div>
@@ -934,26 +1010,50 @@
       window.print();
     }
 
-    // === INFORMES & PRODUCTIVIDAD ===
+    // === INFORMES & PRODUCTIVIDAD (CON FILTROS Y EXPORTACIÓN) ===
+    function obtenerDatosFiltrados() {
+      const fechaDesde = document.getElementById("filter-fecha-desde")?.value || "";
+      const fechaHasta = document.getElementById("filter-fecha-hasta")?.value || "";
+      const operarioFiltro = document.getElementById("filter-operario")?.value || "";
+      const razonSocialFiltro = document.getElementById("filter-razon-social")?.value || "";
+
+      const produccionesFiltradas = appData.producciones.filter(p => {
+        if (fechaDesde && p.fecha < fechaDesde) return false;
+        if (fechaHasta && p.fecha > fechaHasta) return false;
+        if (operarioFiltro && p.operario !== operarioFiltro) return false;
+        return true;
+      });
+
+      const albaranesFiltrados = appData.albaranes.filter(a => {
+        if (fechaDesde && a.fecha < fechaDesde) return false;
+        if (fechaHasta && a.fecha > fechaHasta) return false;
+        if (razonSocialFiltro && a.razonSocial !== razonSocialFiltro) return false;
+        return true;
+      });
+
+      return { produccionesFiltradas, albaranesFiltrados, fechaDesde, fechaHasta, operarioFiltro, razonSocialFiltro };
+    }
+
     function renderInformesProductividad() {
-      // 1. Stats Generales
-      const totalUd = appData.producciones.reduce((acc, p) => acc + parseInt(p.unidades), 0);
-      const totalMin = appData.producciones.reduce((acc, p) => acc + parseInt(p.minutosTotales || 0), 0);
+      const { produccionesFiltradas, albaranesFiltrados } = obtenerDatosFiltrados();
+
+      const totalUd = produccionesFiltradas.reduce((acc, p) => acc + parseInt(p.unidades || 0), 0);
+      const totalMin = produccionesFiltradas.reduce((acc, p) => acc + parseInt(p.minutosTotales || 0), 0);
       const totalHoras = (totalMin / 60).toFixed(1);
       const velMedia = totalHoras > 0 ? (totalUd / totalHoras).toFixed(1) : "0";
 
       document.getElementById("stat-total-producido").innerText = `${totalUd} ud`;
       document.getElementById("stat-tiempo-total").innerText = `${totalHoras} hrs`;
       document.getElementById("stat-velocidad-media").innerText = `${velMedia} ud/h`;
-      document.getElementById("stat-total-albaranes").innerText = appData.albaranes.length;
+      document.getElementById("stat-total-albaranes").innerText = albaranesFiltrados.length;
 
-      // 2. Productividad por Operario
+      // Productividad por Operario
       const opStats = {};
       appData.operarios.forEach(op => opStats[op] = { unidades: 0, minutos: 0 });
 
-      appData.producciones.forEach(p => {
+      produccionesFiltradas.forEach(p => {
         if (!opStats[p.operario]) opStats[p.operario] = { unidades: 0, minutos: 0 };
-        opStats[p.operario].unidades += parseInt(p.unidades);
+        opStats[p.operario].unidades += parseInt(p.unidades || 0);
         opStats[p.operario].minutos += parseInt(p.minutosTotales || 0);
       });
 
@@ -974,12 +1074,12 @@
         `;
       }).join("");
 
-      // 3. Reparto Interempresa por Razón Social
+      // Reparto Interempresa por Razón Social
       const razStats = {};
-      appData.albaranes.forEach(a => {
+      albaranesFiltrados.forEach(a => {
         if (!razStats[a.razonSocial]) razStats[a.razonSocial] = { albaranes: 0, unidades: 0 };
         razStats[a.razonSocial].albaranes += 1;
-        const totalAlbUd = a.lineas.reduce((acc, l) => acc + parseInt(l.unidadesEnviadas), 0);
+        const totalAlbUd = (a.lineas || []).reduce((acc, l) => acc + parseInt(l.unidadesEnviadas || 0), 0);
         razStats[a.razonSocial].unidades += totalAlbUd;
       });
 
@@ -993,7 +1093,139 @@
       `).join("") || `<tr><td colspan="3" class="py-4 text-center text-xs text-slate-400">Sin datos de envíos.</td></tr>`;
     }
 
-    // === GESTIÓN DE NUEVOS PRODUCTOS ===
+    function limpiarFiltros() {
+      document.getElementById("filter-fecha-desde").value = "";
+      document.getElementById("filter-fecha-hasta").value = "";
+      document.getElementById("filter-operario").value = "";
+      document.getElementById("filter-razon-social").value = "";
+      renderInformesProductividad();
+    }
+
+    // === FUNCIONES DE EXPORTACIÓN (EXCEL / PDF / COMPARTIR) ===
+    function exportarExcelCSV() {
+      const { produccionesFiltradas, albaranesFiltrados } = obtenerDatosFiltrados();
+
+      let csvContent = "data:text/csv;charset=utf-8,";
+      
+      // Sección 1: Producción
+      csvContent += "=== REGISTROS DE PRODUCCION ===\n";
+      csvContent += "ID,Fecha,Operario,Producto,HoraInicio,HoraFin,Minutos,Unidades,Lote\n";
+      
+      produccionesFiltradas.forEach(p => {
+        const prod = appData.productos.find(x => x.id === p.productoId);
+        const prodNombre = prod ? prod.nombre.replace(/,/g, " ") : "Producto";
+        csvContent += `${p.id},${p.fecha},${p.operario},"${prodNombre}",${p.horaInicio},${p.horaFin},${p.minutosTotales},${p.unidades},${p.lote}\n`;
+      });
+
+      csvContent += "\n=== ALBARANES Y SALIDAS INTEREMPRESA ===\n";
+      csvContent += "IDAlbaran,IDPedido,Fecha,PuntoDestino,RazonSocial,ValidadoPor,UnidadesEnviadasTotales\n";
+
+      albaranesFiltrados.forEach(a => {
+        const totalUd = (a.lineas || []).reduce((acc, l) => acc + parseInt(l.unidadesEnviadas || 0), 0);
+        csvContent += `${a.id},${a.pedidoId},${a.fecha},"${a.puntoDestino}","${a.razonSocial}",${a.validadoPor},${totalUd}\n`;
+      });
+
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `Informe_SomosDeSantona_${new Date().toISOString().split("T")[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function imprimirInformeProductividad() {
+      const { produccionesFiltradas, albaranesFiltrados, fechaDesde, fechaHasta } = obtenerDatosFiltrados();
+      const container = document.getElementById("printable-report");
+
+      const totalUd = produccionesFiltradas.reduce((acc, p) => acc + parseInt(p.unidades || 0), 0);
+      const totalMin = produccionesFiltradas.reduce((acc, p) => acc + parseInt(p.minutosTotales || 0), 0);
+      const totalHoras = (totalMin / 60).toFixed(1);
+
+      const rangoStr = (fechaDesde || fechaHasta) ? `Del ${fechaDesde || 'Inicio'} al ${fechaHasta || 'Hoy'}` : "Periodo Completo";
+
+      const lineasProdHtml = produccionesFiltradas.map(p => {
+        const prod = appData.productos.find(x => x.id === p.productoId);
+        return `
+          <tr class="border-b">
+            <td class="py-1.5 px-2">${p.fecha}</td>
+            <td class="py-1.5 px-2 font-semibold">${p.operario}</td>
+            <td class="py-1.5 px-2">${prod ? prod.nombre : ''}</td>
+            <td class="py-1.5 px-2 text-center">${p.minutosTotales} min</td>
+            <td class="py-1.5 px-2 text-right font-bold">${p.unidades} ud</td>
+          </tr>
+        `;
+      }).join("");
+
+      container.innerHTML = `
+        <div class="border-b-2 border-blue-900 pb-4 mb-6 flex justify-between items-start">
+          <div>
+            <h1 class="text-2xl font-black text-blue-900">SOMOS DE SANTOÑA SL</h1>
+            <p class="text-xs text-slate-600">Informe de Producción, Productividad y Salidas Interempresa</p>
+          </div>
+          <div class="text-right">
+            <span class="text-xs font-bold bg-blue-100 text-blue-900 px-2 py-1 rounded">REPORTE OFICIAL</span>
+            <p class="text-xs text-slate-500 mt-1">${rangoStr}</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 mb-6 text-center text-xs">
+          <div class="bg-slate-50 p-3 rounded border">
+            <p class="text-slate-500 font-bold uppercase">Total Producido</p>
+            <p class="text-lg font-black text-blue-900">${totalUd} ud</p>
+          </div>
+          <div class="bg-slate-50 p-3 rounded border">
+            <p class="text-slate-500 font-bold uppercase">Horas Trabajadas</p>
+            <p class="text-lg font-black text-amber-600">${totalHoras} hrs</p>
+          </div>
+          <div class="bg-slate-50 p-3 rounded border">
+            <p class="text-slate-500 font-bold uppercase">Albaranes Emitidos</p>
+            <p class="text-lg font-black text-purple-600">${albaranesFiltrados.length}</p>
+          </div>
+        </div>
+
+        <h3 class="font-bold text-sm text-slate-800 mb-2 border-b pb-1">Detalle de Registros de Producción</h3>
+        <table class="w-full text-xs mb-6">
+          <thead class="bg-slate-100 font-bold border-b">
+            <tr>
+              <th class="py-2 px-2 text-left">Fecha</th>
+              <th class="py-2 px-2 text-left">Operario</th>
+              <th class="py-2 px-2 text-left">Producto</th>
+              <th class="py-2 px-2 text-center">Duración</th>
+              <th class="py-2 px-2 text-right">Unidades</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${lineasProdHtml || '<tr><td colspan="5" class="py-4 text-center text-slate-400">Sin registros en el rango.</td></tr>'}
+          </tbody>
+        </table>
+      `;
+
+      window.print();
+    }
+
+    function compartirInforme() {
+      const { produccionesFiltradas, albaranesFiltrados } = obtenerDatosFiltrados();
+      const totalUd = produccionesFiltradas.reduce((acc, p) => acc + parseInt(p.unidades || 0), 0);
+      
+      const textoMensaje = `📊 *Resumen de Producción - Somos de Santoña SL*\n` +
+        `• Total Producido: ${totalUd} ud\n` +
+        `• Partes de Fabricación: ${produccionesFiltradas.length}\n` +
+        `• Albaranes Emitidos: ${albaranesFiltrados.length}\n` +
+        `Generado el: ${new Date().toLocaleDateString()}`;
+
+      if (navigator.share) {
+        navigator.share({
+          title: "Informe Somos de Santoña SL",
+          text: textoMensaje
+        }).catch(err => console.log("Compartido cancelado", err));
+      } else {
+        navigator.clipboard.writeText(textoMensaje);
+        alert("📋 Resumen copiado al portapapeles. ¡Puedes pegarlo en WhatsApp o email!");
+      }
+    }
+
+    // === MODAL NUEVO PRODUCTO ===
     function abrirModalNuevoProducto() {
       document.getElementById("modal-nuevo-producto").classList.remove("hidden");
     }
@@ -1021,12 +1253,13 @@
       document.getElementById("nuevo-prod-formato").value = "";
     }
 
-    // === GOOGLE SHEETS & RESET DATABASE ===
+    // === GOOGLE SHEETS Y RESET DB ===
     function guardarUrlGoogleAppsScript() {
       const url = document.getElementById("config-apps-script-url").value;
       appData.appsScriptUrl = url;
       guardarEstado();
-      alert("✅ URL de Google Apps Script guardada.");
+      document.getElementById("sync-status").innerText = url ? "Sincronizado con Sheets" : "Local / Listo para Sheets";
+      alert("✅ URL de Google Apps Script configurada correctamente.");
     }
 
     function sincronizarConGoogleSheets(sheetName, record) {
@@ -1041,12 +1274,11 @@
           sheet: sheetName,
           row: Object.values(record)
         })
-      }).then(() => console.log(`Sincronizado con Sheet: ${sheetName}`))
-        .catch(err => console.error("Error al sincronizar con Google Sheets", err));
+      }).catch(err => console.error("Error sincronizando con Google Sheets:", err));
     }
 
     function resetearBaseDeDatos() {
-      const confirmacion = confirm("⚠️ ¿Estás completamente seguro de que deseas poner la base de datos a CERO?\n\nSe borrarán todas las producciones, pedidos, albaranes e inventario.");
+      const confirmacion = confirm("⚠️ ¿Estás completamente seguro de poner la base de datos a CERO?\n\nSe borrará todo el historial de producciones, pedidos, albaranes e inventario.");
       if (confirmacion) {
         appData.producciones = [];
         appData.pedidos = [];
